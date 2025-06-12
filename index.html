@@ -3,26 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game-Monhabell</title>
+    <title>Game - Monhabell</title>
     <script src="./phaser.min.js"></script>
     <script type="module" src="./game.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body{
-            display: grid;
-            place-items: center;
-            
-            background: black;
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
         }
-        #game {
-            border-radius: 10px;
-            background-color: blue;
-            padding: 5%;
-        }
-
         
+        .game-container {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        
+        #game {
+            border-radius: 15px;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+            overflow: hidden;
+            border: 3px solid #00ffff;
+        }
+        
+        .title {
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #0088ff;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+        
+        .controls {
+            background: rgba(0, 0, 50, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .controls h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .arrows {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .arrow-row {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .arrow-key {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 50, 100, 0.8);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #00ffff;
+            box-shadow: 0 4px 0 #005588, 0 0 10px rgba(0, 255, 255, 0.5);
+            transition: all 0.2s;
+        }
+        
+        .arrow-key.active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 #005588;
+            background: rgba(0, 100, 200, 0.8);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .arrow-key {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="game"></div>
+    <div class="game-container">
+        <h1 class="title">MONHABELL AVENTURA</h1>
+        <div id="game"></div>
+        
+        <div class="controls">
+            <h2>CONTROLES</h2>
+            <div class="arrows">
+                <div class="arrow-row">
+                    <div class="arrow-key" id="arrow-up">↑</div>
+                </div>
+                <div class="arrow-row">
+                    <div class="arrow-key" id="arrow-left">←</div>
+                    <div class="arrow-key" id="arrow-down">↓</div>
+                    <div class="arrow-key" id="arrow-right">→</div>
+                </div>
+            </div>
+        </div>
+        
+        <p class="footer">Use arrow keys to play | © 2024 Monhabell</p>
+    </div>
+
+    <script>
+        // Efecto interactivo para las teclas
+        const arrowKeys = {
+            'ArrowUp': document.getElementById('arrow-up'),
+            'ArrowLeft': document.getElementById('arrow-left'),
+            'ArrowDown': document.getElementById('arrow-down'),
+            'ArrowRight': document.getElementById('arrow-right')
+        };
+        
+        document.addEventListener('keydown', (e) => {
+            if (arrowKeys[e.key]) {
+                arrowKeys[e.key].classList.add('active');
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            if (arrowKeys[e.key]) {
+                arrowKeys[e.key].classList.remove('active');
+            }
+        });
+        
+        // También para clics/touch
+        Object.values(arrowKeys).forEach(key => {
+            key.addEventListener('mousedown', () => key.classList.add('active'));
+            key.addEventListener('mouseup', () => key.classList.remove('active'));
+            key.addEventListener('mouseleave', () => key.classList.remove('active'));
+        });
+    </script>
 </body>
 </html>

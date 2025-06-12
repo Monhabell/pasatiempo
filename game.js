@@ -5,7 +5,7 @@ let score = 0; // Variable global para la puntuación
 let vidas = 3;
 const config = {
     type: Phaser.AUTO,
-    width: 650,
+    width: 790,
     height: 380,
     backgroundColor: '#049cd8',
     parent: 'game',
